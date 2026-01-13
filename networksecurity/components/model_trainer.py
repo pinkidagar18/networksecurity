@@ -1,6 +1,5 @@
 import os
 import sys
-import mlflow
 
 from networksecurity.exception.exception import NetworkSecurityException
 from networksecurity.logging.logger import logging
@@ -29,6 +28,10 @@ from sklearn.ensemble import (
     GradientBoostingClassifier,
     AdaBoostClassifier,
 )
+import mlflow
+import dagshub
+dagshub.init(repo_owner='pinkidagar18', repo_name='networksecurity', mlflow=True)
+
 
 
 class ModelTrainer:
@@ -137,6 +140,7 @@ class ModelTrainer:
                 file_path=self.model_trainer_config.trained_model_file_path,
                 obj=network_model,
             )
+            save_object("final_model/model.pkl",best_model)
 
             model_trainer_artifact = ModelTrainerArtifact(
                 trained_model_file_path=self.model_trainer_config.trained_model_file_path,
