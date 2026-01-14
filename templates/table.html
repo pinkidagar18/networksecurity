@@ -1,21 +1,634 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Data Table</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetShield - Analysis Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;500;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
+
+        :root {
+            --primary: #00ffff;
+            --secondary: #ff006e;
+            --tertiary: #7b2cbf;
+            --accent: #ffbe0b;
+            --success: #00ff88;
+            --danger: #ff0055;
+            --bg-dark: #0d0221;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-dark);
+            color: white;
+            padding: 2rem;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-gradient {
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 30%, rgba(255, 0, 110, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 190, 11, 0.1) 0%, transparent 50%);
+            animation: bg-rotate 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes bg-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-flow 3s linear infinite;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .header-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 300;
+        }
+
+        /* Summary Cards */
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .summary-card {
+            background: var(--glass);
+            backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .summary-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .summary-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.2);
+        }
+
+        .summary-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .summary-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-value.total {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .summary-value.danger {
+            color: var(--danger);
+            text-shadow: 0 0 30px rgba(255, 0, 85, 0.5);
+        }
+
+        .summary-value.success {
+            color: var(--success);
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .summary-icon {
+            font-size: 2.5rem;
+            margin-top: 1rem;
+            opacity: 0.3;
+        }
+
+        /* Action Bar */
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem 2rem;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--bg-dark);
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 255, 255, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        /* Filter Controls */
+        .filter-section {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: var(--bg-dark);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 0.75rem 1.5rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Table Container */
+        .table-container {
+            background: var(--glass);
+            backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .table-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 70vh;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(0, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        th {
+            padding: 1.2rem 1rem;
             text-align: left;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s;
+            animation: slideIn 0.5s ease-out backwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        tbody tr:hover {
+            background: rgba(0, 255, 255, 0.05);
+            transform: scale(1.01);
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.1);
+        }
+
+        td {
+            padding: 1.2rem 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+        }
+
+        /* Prediction Badges */
+        .prediction-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-danger {
+            background: rgba(255, 0, 85, 0.2);
+            border: 2px solid var(--danger);
+            color: var(--danger);
+            animation: pulse-danger 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-danger {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(255, 0, 85, 0.6);
+            }
+        }
+
+        .badge-success {
+            background: rgba(0, 255, 136, 0.2);
+            border: 2px solid var(--success);
+            color: var(--success);
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .action-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-section {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 0.8rem 0.5rem;
+            }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
         }
     </style>
 </head>
 <body>
-    <h2>Predicted Data</h2>
-    {{ table | safe }}
+    <div class="bg-gradient"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">NETSHIELD</div>
+            <div class="header-subtitle">Threat Analysis Results</div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary">
+            <div class="summary-card">
+                <div class="summary-label">Total Analyzed</div>
+                <div class="summary-value total" id="total-count">0</div>
+                <div class="summary-icon">📊</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-label">⚠️ Phishing Detected</div>
+                <div class="summary-value danger" id="phishing-count">0</div>
+                <div class="summary-icon">🚨</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-label">✓ Legitimate URLs</div>
+                <div class="summary-value success" id="legitimate-count">0</div>
+                <div class="summary-icon">🛡️</div>
+            </div>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="downloadCSV()">
+                    📥 Download Results
+                </button>
+                <a href="/predict-ui" class="btn btn-secondary">
+                    🔄 New Analysis
+                </a>
+                <a href="/" class="btn btn-secondary">
+                    🏠 Home
+                </a>
+            </div>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="action-bar">
+            <div class="filter-section">
+                <button class="filter-btn active" data-filter="all">All Results</button>
+                <button class="filter-btn" data-filter="phishing">Phishing Only</button>
+                <button class="filter-btn" data-filter="legitimate">Legitimate Only</button>
+            </div>
+            <input type="text" class="search-box" id="search-box" placeholder="🔍 Search results...">
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <h2 class="table-title">Detailed Analysis</h2>
+            <div class="table-wrapper" id="table-wrapper">
+                {{ table|safe }}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const table = document.querySelector('table');
+        const rows = Array.from(table.querySelectorAll('tbody tr'));
+        
+        let phishingCount = 0;
+        let legitimateCount = 0;
+
+        // Process predictions
+        rows.forEach((row, index) => {
+            row.style.animationDelay = `${index * 0.05}s`;
+            
+            const cells = row.querySelectorAll('td');
+            const predictionCell = cells[cells.length - 1];
+            const predictionValue = predictionCell.textContent.trim();
+            
+            if (predictionValue === '1' || predictionValue === '-1') {
+                const isPhishing = predictionValue === '1';
+                
+                if (isPhishing) {
+                    phishingCount++;
+                    predictionCell.innerHTML = `
+                        <span class="prediction-badge badge-danger">
+                            ⚠️ Phishing
+                        </span>
+                    `;
+                    row.dataset.category = 'phishing';
+                } else {
+                    legitimateCount++;
+                    predictionCell.innerHTML = `
+                        <span class="prediction-badge badge-success">
+                            ✓ Legitimate
+                        </span>
+                    `;
+                    row.dataset.category = 'legitimate';
+                }
+            } else if (predictionValue === '0') {
+                legitimateCount++;
+                predictionCell.innerHTML = `
+                    <span class="prediction-badge badge-success">
+                        ✓ Legitimate
+                    </span>
+                `;
+                row.dataset.category = 'legitimate';
+            } else {
+                phishingCount++;
+                predictionCell.innerHTML = `
+                    <span class="prediction-badge badge-danger">
+                        ⚠️ Phishing
+                    </span>
+                `;
+                row.dataset.category = 'phishing';
+            }
+        });
+
+        // Update counts
+        document.getElementById('total-count').textContent = rows.length;
+        document.getElementById('phishing-count').textContent = phishingCount;
+        document.getElementById('legitimate-count').textContent = legitimateCount;
+
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                rows.forEach(row => {
+                    if (filter === 'all') {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = row.dataset.category === filter ? '' : 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        const searchBox = document.getElementById('search-box');
+        searchBox.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                const matchesSearch = text.includes(searchTerm);
+                const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+                const matchesFilter = activeFilter === 'all' || row.dataset.category === activeFilter;
+                
+                row.style.display = matchesSearch && matchesFilter ? '' : 'none';
+            });
+        });
+
+        // Download function
+        function downloadCSV() {
+            window.location.href = '/download-results';
+        }
+
+        // Parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            const bgGradient = document.querySelector('.bg-gradient');
+            bgGradient.style.transform = `translate(${x * 30}px, ${y * 30}px)`;
+        });
+    </script>
 </body>
 </html>

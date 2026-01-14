@@ -1,0 +1,72 @@
+[ 2026-01-14 19:48:56,857 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2026-01-14 19:48:56,865 ] 107 dagshub - INFO - Accessing as pinkidagar18
+[ 2026-01-14 19:48:58,487 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/pinkidagar18/networksecurity "HTTP/1.1 200 OK"
+[ 2026-01-14 19:49:00,436 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2026-01-14 19:49:00,438 ] 107 dagshub - INFO - Initialized MLflow to track repo "pinkidagar18/networksecurity"
+[ 2026-01-14 19:49:00,439 ] 107 dagshub - INFO - Repository pinkidagar18/networksecurity initialized!
+[ 2026-01-14 19:50:41,304 ] 109 root - INFO - Received CSV file with 12 rows and 30 columns
+[ 2026-01-14 19:50:41,403 ] 120 root - INFO - Predictions generated: [1. 1. 0. 1. 1. 1. 1. 0. 1. 0.]
+[ 2026-01-14 19:50:41,410 ] 133 root - INFO - Predictions saved to prediction_output/output.csv
+[ 2026-01-14 19:51:53,065 ] 84 root - INFO - Training pipeline initiated via API
+[ 2026-01-14 19:51:53,066 ] 38 root - INFO - Start data Ingestion
+[ 2026-01-14 19:51:53,066 ] 105 root - INFO - Starting data ingestion process
+[ 2026-01-14 19:51:53,066 ] 33 root - INFO - Connecting to MongoDB
+[ 2026-01-14 19:51:59,680 ] 49 root - INFO - Successfully fetched data from MongoDB
+[ 2026-01-14 19:51:59,783 ] 65 root - INFO - Data exported to feature store successfully
+[ 2026-01-14 19:51:59,783 ] 74 root - INFO - Performing train-test split
+[ 2026-01-14 19:51:59,899 ] 97 root - INFO - Train-test split completed and files saved
+[ 2026-01-14 19:51:59,899 ] 116 root - INFO - Data ingestion completed successfully
+[ 2026-01-14 19:51:59,900 ] 41 root - INFO - Data Ingestion completed and artifact: DataIngestionArtifact(trained_file_path='Artifacts\\01_14_2026_19_48_50\\data_ingestion\\ingested\\train.csv', test_file_path='Artifacts\\01_14_2026_19_48_50\\data_ingestion\\ingested\\test.csv')
+[ 2026-01-14 19:51:59,922 ] 51 root - INFO - Initiate the data Validation
+[ 2026-01-14 19:52:00,004 ] 32 root - INFO - Required number of columns:2
+[ 2026-01-14 19:52:00,004 ] 33 root - INFO - Data frame has columns:31
+[ 2026-01-14 19:52:00,005 ] 32 root - INFO - Required number of columns:2
+[ 2026-01-14 19:52:00,005 ] 33 root - INFO - Data frame has columns:31
+[ 2026-01-14 19:52:00,218 ] 63 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2026-01-14 19:52:00,218 ] 65 root - INFO - Starting data transformation
+[ 2026-01-14 19:52:00,254 ] 48 root - INFO - Entered get_data_transformer_object method of Transformation class
+[ 2026-01-14 19:52:00,255 ] 53 root - INFO - Initialise KNNImputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[ 2026-01-14 19:52:00,278 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 19:52:00,285 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 19:52:00,285 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 19:52:00,292 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 19:52:38,390 ] 105 root - INFO - Best model selected: Random Forest
+[ 2026-01-14 19:53:00,968 ] 868 urllib3.connectionpool - WARNING - Retrying (Retry(total=6, connect=7, read=6, redirect=7, status=7)) after connection broken by 'ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)': /pinkidagar18/networksecurity.mlflow/api/2.0/mlflow/logged-models/m-062862363cfa44268bdd0dd11b560e85
+[ 2026-01-14 19:54:02,162 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 19:54:02,195 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 19:54:02,195 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 19:54:02,217 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 19:54:02,218 ] 151 root - INFO - Model trainer artifact: ModelTrainerArtifact(trained_model_file_path='Artifacts\\01_14_2026_19_48_50\\model_trainer\\trained_model\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9915538821613921, precision_score=0.989238578680203, recall_score=0.9938800489596084), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.9711576451995259, precision_score=0.963166144200627, recall_score=0.9792828685258964))
+[ 2026-01-14 19:54:02,224 ] 90 root - ERROR - Training pipeline failed: Error occured in python script name [C:\Users\pc\OneDrive\Attachments\Desktop\NETWORKSECURITY\networksecurity\pipeline\training_pipeline.py] line number [112] error message [Error occured in python script name [C:\Users\pc\OneDrive\Attachments\Desktop\NETWORKSECURITY\networksecurity\pipeline\training_pipeline.py] line number [89] error message [name 'TRAINING_BUCKET_NAME' is not defined]]
+[ 2026-01-14 19:54:02,243 ] 1865 asyncio - ERROR - Exception in callback BaseProactorEventLoop._start_serving.<locals>.loop() at C:\Program Files\Python313\Lib\asyncio\proactor_events.py:840
+handle: <Handle BaseProactorEventLoop._start_serving.<locals>.loop() at C:\Program Files\Python313\Lib\asyncio\proactor_events.py:840>
+Traceback (most recent call last):
+  File "C:\Program Files\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\asyncio\proactor_events.py", line 855, in loop
+    self._make_socket_transport(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        conn, protocol,
+        ^^^^^^^^^^^^^^^
+        extra={'peername': addr}, server=server)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\asyncio\proactor_events.py", line 644, in _make_socket_transport
+    return _ProactorSocketTransport(self, sock, protocol, waiter,
+                                    extra, server)
+  File "C:\Program Files\Python313\Lib\asyncio\proactor_events.py", line 610, in __init__
+    super().__init__(loop, sock, protocol, waiter, extra, server)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\asyncio\proactor_events.py", line 189, in __init__
+    super().__init__(loop, sock, protocol, waiter, extra, server)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\asyncio\proactor_events.py", line 335, in __init__
+    super().__init__(*args, **kw)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\asyncio\proactor_events.py", line 66, in __init__
+    self._server._attach(self)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Program Files\Python313\Lib\asyncio\base_events.py", line 297, in _attach
+    assert self._sockets is not None
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
