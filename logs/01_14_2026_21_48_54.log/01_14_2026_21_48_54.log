@@ -1,0 +1,41 @@
+[ 2026-01-14 21:49:16,697 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2026-01-14 21:49:16,720 ] 107 dagshub - INFO - Accessing as pinkidagar18
+[ 2026-01-14 21:49:20,525 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/pinkidagar18/networksecurity "HTTP/1.1 200 OK"
+[ 2026-01-14 21:49:24,664 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2026-01-14 21:49:24,669 ] 107 dagshub - INFO - Initialized MLflow to track repo "pinkidagar18/networksecurity"
+[ 2026-01-14 21:49:24,674 ] 107 dagshub - INFO - Repository pinkidagar18/networksecurity initialized!
+[ 2026-01-14 21:49:24,674 ] 22 root - INFO - \U0001f680 Network Security Training Pipeline Started
+[ 2026-01-14 21:49:24,676 ] 32 root - INFO - \U0001f4e5 Data Ingestion Started
+[ 2026-01-14 21:49:24,676 ] 105 root - INFO - Starting data ingestion process
+[ 2026-01-14 21:49:24,676 ] 33 root - INFO - Connecting to MongoDB
+[ 2026-01-14 21:49:30,235 ] 49 root - INFO - Successfully fetched data from MongoDB
+[ 2026-01-14 21:49:30,477 ] 65 root - INFO - Data exported to feature store successfully
+[ 2026-01-14 21:49:30,478 ] 74 root - INFO - Performing train-test split
+[ 2026-01-14 21:49:30,739 ] 97 root - INFO - Train-test split completed and files saved
+[ 2026-01-14 21:49:30,740 ] 116 root - INFO - Data ingestion completed successfully
+[ 2026-01-14 21:49:30,740 ] 36 root - INFO - \u2705 Data Ingestion Completed
+[ 2026-01-14 21:49:30,748 ] 42 root - INFO - \U0001f50d Data Validation Started
+[ 2026-01-14 21:49:30,990 ] 32 root - INFO - Required number of columns:2
+[ 2026-01-14 21:49:30,990 ] 33 root - INFO - Data frame has columns:31
+[ 2026-01-14 21:49:30,990 ] 32 root - INFO - Required number of columns:2
+[ 2026-01-14 21:49:30,990 ] 33 root - INFO - Data frame has columns:31
+[ 2026-01-14 21:49:31,652 ] 48 root - INFO - \u2705 Data Validation Completed
+[ 2026-01-14 21:49:31,657 ] 54 root - INFO - \U0001f504 Data Transformation Started
+[ 2026-01-14 21:49:31,657 ] 63 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2026-01-14 21:49:31,657 ] 65 root - INFO - Starting data transformation
+[ 2026-01-14 21:49:31,780 ] 48 root - INFO - Entered get_data_transformer_object method of Transformation class
+[ 2026-01-14 21:49:31,780 ] 53 root - INFO - Initialise KNNImputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[ 2026-01-14 21:49:31,874 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 21:49:31,880 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 21:49:31,880 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 21:49:31,886 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 21:49:31,888 ] 64 root - INFO - \u2705 Data Transformation Completed
+[ 2026-01-14 21:49:31,899 ] 70 root - INFO - \U0001f916 Model Training Started
+[ 2026-01-14 21:51:19,995 ] 107 root - INFO - Best model selected: Random Forest
+[ 2026-01-14 21:54:19,125 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 21:54:19,189 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 21:54:19,190 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 21:54:19,355 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 21:54:19,356 ] 153 root - INFO - Model trainer artifact: ModelTrainerArtifact(trained_model_file_path='Artifacts\\01_14_2026_21_48_54\\model_trainer\\trained_model\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9915573186857899, precision_score=0.9888415500101441, recall_score=0.9942880456956344), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.9700078926598263, precision_score=0.9609069585613761, recall_score=0.9792828685258964))
+[ 2026-01-14 21:54:19,371 ] 77 root - INFO - \u2705 Model Training Completed
+[ 2026-01-14 21:54:19,374 ] 80 root - INFO - \U0001f389 Network Security Training Pipeline Completed Successfully

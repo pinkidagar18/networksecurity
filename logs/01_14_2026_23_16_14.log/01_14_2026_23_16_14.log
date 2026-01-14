@@ -1,0 +1,51 @@
+[ 2026-01-14 23:16:22,453 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2026-01-14 23:16:22,458 ] 107 dagshub - INFO - Accessing as pinkidagar18
+[ 2026-01-14 23:16:23,893 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/pinkidagar18/networksecurity "HTTP/1.1 200 OK"
+[ 2026-01-14 23:16:26,620 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2026-01-14 23:16:26,627 ] 107 dagshub - INFO - Initialized MLflow to track repo "pinkidagar18/networksecurity"
+[ 2026-01-14 23:16:26,627 ] 107 dagshub - INFO - Repository pinkidagar18/networksecurity initialized!
+[ 2026-01-14 23:16:26,649 ] 22 root - INFO - \U0001f680 Network Security Training Pipeline Started
+[ 2026-01-14 23:16:26,650 ] 32 root - INFO - \U0001f4e5 Data Ingestion Started
+[ 2026-01-14 23:16:26,650 ] 105 root - INFO - Starting data ingestion process
+[ 2026-01-14 23:16:26,650 ] 33 root - INFO - Connecting to MongoDB
+[ 2026-01-14 23:16:59,179 ] 49 root - INFO - Successfully fetched data from MongoDB
+[ 2026-01-14 23:16:59,268 ] 65 root - INFO - Data exported to feature store successfully
+[ 2026-01-14 23:16:59,268 ] 74 root - INFO - Performing train-test split
+[ 2026-01-14 23:16:59,353 ] 97 root - INFO - Train-test split completed and files saved
+[ 2026-01-14 23:16:59,353 ] 116 root - INFO - Data ingestion completed successfully
+[ 2026-01-14 23:16:59,354 ] 36 root - INFO - \u2705 Data Ingestion Completed
+[ 2026-01-14 23:16:59,354 ] 42 root - INFO - \U0001f50d Data Validation Started
+[ 2026-01-14 23:16:59,437 ] 32 root - INFO - Required number of columns:2
+[ 2026-01-14 23:16:59,437 ] 33 root - INFO - Data frame has columns:31
+[ 2026-01-14 23:16:59,437 ] 32 root - INFO - Required number of columns:2
+[ 2026-01-14 23:16:59,437 ] 33 root - INFO - Data frame has columns:31
+[ 2026-01-14 23:16:59,628 ] 48 root - INFO - \u2705 Data Validation Completed
+[ 2026-01-14 23:16:59,628 ] 54 root - INFO - \U0001f504 Data Transformation Started
+[ 2026-01-14 23:16:59,628 ] 63 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2026-01-14 23:16:59,628 ] 65 root - INFO - Starting data transformation
+[ 2026-01-14 23:16:59,656 ] 48 root - INFO - Entered get_data_transformer_object method of Transformation class
+[ 2026-01-14 23:16:59,656 ] 53 root - INFO - Initialise KNNImputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[ 2026-01-14 23:16:59,708 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 23:16:59,714 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 23:16:59,714 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 23:16:59,719 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 23:16:59,721 ] 64 root - INFO - \u2705 Data Transformation Completed
+[ 2026-01-14 23:16:59,721 ] 70 root - INFO - \U0001f916 Model Training Started
+[ 2026-01-14 23:17:22,606 ] 120 root - INFO - Best model selected: Random Forest
+[ 2026-01-14 23:17:22,607 ] 124 root - INFO - Logging metrics for model: Random Forest
+[ 2026-01-14 23:19:44,191 ] 124 root - INFO - Logging metrics for model: Decision Tree
+[ 2026-01-14 23:20:51,393 ] 827 urllib3.connectionpool - WARNING - Retrying (JitteredRetry(total=6, connect=7, read=6, redirect=7, status=7)) after connection broken by 'ProtocolError('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))': /pinkidagar18/networksecurity.mlflow/api/2.0/mlflow/logged-models/m-24a6af6c857246ae86694b9e2c4e3c4e
+[ 2026-01-14 23:21:52,031 ] 827 urllib3.connectionpool - WARNING - Retrying (JitteredRetry(total=6, connect=7, read=6, redirect=7, status=7)) after connection broken by 'ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))': /pinkidagar18/networksecurity.mlflow/api/2.0/mlflow-artifacts/artifacts/6bfb100468604dc1a5b21250a106fba6/models/m-24a6af6c857246ae86694b9e2c4e3c4e/artifacts/model.pkl
+[ 2026-01-14 23:22:35,622 ] 827 urllib3.connectionpool - WARNING - Retrying (JitteredRetry(total=5, connect=7, read=5, redirect=7, status=7)) after connection broken by 'ProtocolError('Connection aborted.', ConnectionAbortedError(10053, 'An established connection was aborted by the software in your host machine', None, 10053, None))': /pinkidagar18/networksecurity.mlflow/api/2.0/mlflow-artifacts/artifacts/6bfb100468604dc1a5b21250a106fba6/models/m-24a6af6c857246ae86694b9e2c4e3c4e/artifacts/model.pkl
+[ 2026-01-14 23:22:39,619 ] 124 root - INFO - Logging metrics for model: Gradient Boosting
+[ 2026-01-14 23:25:04,050 ] 827 urllib3.connectionpool - WARNING - Retrying (JitteredRetry(total=6, connect=7, read=6, redirect=7, status=7)) after connection broken by 'ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))': /pinkidagar18/networksecurity.mlflow/api/2.0/mlflow-artifacts/artifacts/6bfb100468604dc1a5b21250a106fba6/models/m-46796f773f4b411c8a458a2dadf1134a/artifacts/model.pkl
+[ 2026-01-14 23:25:13,634 ] 827 urllib3.connectionpool - WARNING - Retrying (JitteredRetry(total=5, connect=7, read=6, redirect=7, status=7)) after connection broken by 'SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1028)'))': /pinkidagar18/networksecurity.mlflow/api/2.0/mlflow-artifacts/artifacts/6bfb100468604dc1a5b21250a106fba6/models/m-46796f773f4b411c8a458a2dadf1134a/artifacts/model.pkl
+[ 2026-01-14 23:25:51,301 ] 124 root - INFO - Logging metrics for model: Logistic Regression
+[ 2026-01-14 23:26:47,856 ] 124 root - INFO - Logging metrics for model: AdaBoost
+[ 2026-01-14 23:27:43,183 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 23:27:43,226 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 23:27:43,226 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 23:27:43,262 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 23:27:43,263 ] 183 root - INFO - Model trainer artifact: ModelTrainerArtifact(trained_model_file_path='Artifacts\\01_14_2026_23_16_14\\model_trainer\\trained_model\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9307110438729198, precision_score=0.9204069419509275, recall_score=0.9412484700122399, accuracy_score=0.9223202170963365), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.936837975676736, precision_score=0.9227202472952086, recall_score=0.951394422310757, accuracy_score=0.9271822704658526))
+[ 2026-01-14 23:27:43,266 ] 77 root - INFO - \u2705 Model Training Completed
+[ 2026-01-14 23:27:43,267 ] 80 root - INFO - \U0001f389 Network Security Training Pipeline Completed Successfully

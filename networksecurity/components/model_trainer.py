@@ -48,14 +48,29 @@ class ModelTrainer:
             raise NetworkSecurityException(e, sys)
 
     # ✅ FIX 1: METHOD MUST BE AT CLASS LEVEL
-    def track_mlflow(self, best_model, classificationmetric):
+    def track_mlflow(self, model, classificationmetric, model_name=None, best_params=None, phase="train"):
         try:
-            with mlflow.start_run():
+            # If model_name is provided, use it as the run name. 
+            # Otherwise, let MLflow generate a random name (or pass explicit None).
+            with mlflow.start_run(run_name=model_name):
+                # Log metrics
                 mlflow.log_metric("f1_score", classificationmetric.f1_score)
                 mlflow.log_metric("precision", classificationmetric.precision_score)
                 mlflow.log_metric("recall", classificationmetric.recall_score)
+                mlflow.log_metric("accuracy", classificationmetric.accuracy_score)
+                
+                # Log hyperparameters if provided
+                if best_params:
+                    mlflow.log_params(best_params)
+                
+                # Set tags for better organization
+                mlflow.set_tag("model_type", model.__class__.__name__)
+                mlflow.set_tag("phase", phase)
+                mlflow.set_tag("framework", "scikit-learn")
+                mlflow.set_tag("project", "NetworkSecurity-PhishingDetection")
 
-                mlflow.sklearn.log_model(best_model, "model")
+                # Log the model
+                mlflow.sklearn.log_model(model, "model")
         except Exception as e:
             raise NetworkSecurityException(e, sys)
 
@@ -104,21 +119,38 @@ class ModelTrainer:
             best_model = models[best_model_name]
             logging.info(f"Best model selected: {best_model_name}")
 
-            # Train metrics
-            y_train_pred = best_model.predict(X_train)
-            train_metric = get_classification_score(
-                y_true=y_train, y_pred=y_train_pred
-            )
+            # Iterate through all models to log them to MLflow
+            for model_name, model in models.items():
+                logging.info(f"Logging metrics for model: {model_name}")
+                
+                # Get the best parameters for this model
+                best_params = model.get_params()
+                
+                # Train metrics
+                y_train_pred = model.predict(X_train)
+                train_metric = get_classification_score(
+                    y_true=y_train, y_pred=y_train_pred
+                )
+                self.track_mlflow(
+                    model, 
+                    train_metric, 
+                    model_name=f"{model_name}_train",
+                    best_params=best_params,
+                    phase="train"
+                )
 
-            self.track_mlflow(best_model, train_metric)
-
-            # Test metrics
-            y_test_pred = best_model.predict(X_test)
-            test_metric = get_classification_score(
-                y_true=y_test, y_pred=y_test_pred
-            )
-
-            self.track_mlflow(best_model, test_metric)
+                # Test metrics
+                y_test_pred = model.predict(X_test)
+                test_metric = get_classification_score(
+                    y_true=y_test, y_pred=y_test_pred
+                )
+                self.track_mlflow(
+                    model, 
+                    test_metric, 
+                    model_name=f"{model_name}_test",
+                    best_params=best_params,
+                    phase="test"
+                )
 
             # Load preprocessor
             preprocessor = load_object(

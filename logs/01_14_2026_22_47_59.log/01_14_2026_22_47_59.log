@@ -1,0 +1,46 @@
+[ 2026-01-14 22:48:08,040 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2026-01-14 22:48:08,050 ] 107 dagshub - INFO - Accessing as pinkidagar18
+[ 2026-01-14 22:48:09,611 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/pinkidagar18/networksecurity "HTTP/1.1 200 OK"
+[ 2026-01-14 22:48:10,943 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2026-01-14 22:48:10,945 ] 107 dagshub - INFO - Initialized MLflow to track repo "pinkidagar18/networksecurity"
+[ 2026-01-14 22:48:10,946 ] 107 dagshub - INFO - Repository pinkidagar18/networksecurity initialized!
+[ 2026-01-14 22:48:10,949 ] 22 root - INFO - \U0001f680 Network Security Training Pipeline Started
+[ 2026-01-14 22:48:10,950 ] 32 root - INFO - \U0001f4e5 Data Ingestion Started
+[ 2026-01-14 22:48:10,950 ] 105 root - INFO - Starting data ingestion process
+[ 2026-01-14 22:48:10,950 ] 33 root - INFO - Connecting to MongoDB
+[ 2026-01-14 22:48:14,131 ] 49 root - INFO - Successfully fetched data from MongoDB
+[ 2026-01-14 22:48:14,201 ] 65 root - INFO - Data exported to feature store successfully
+[ 2026-01-14 22:48:14,201 ] 74 root - INFO - Performing train-test split
+[ 2026-01-14 22:48:14,293 ] 97 root - INFO - Train-test split completed and files saved
+[ 2026-01-14 22:48:14,293 ] 116 root - INFO - Data ingestion completed successfully
+[ 2026-01-14 22:48:14,294 ] 36 root - INFO - \u2705 Data Ingestion Completed
+[ 2026-01-14 22:48:14,295 ] 42 root - INFO - \U0001f50d Data Validation Started
+[ 2026-01-14 22:48:14,382 ] 32 root - INFO - Required number of columns:2
+[ 2026-01-14 22:48:14,382 ] 33 root - INFO - Data frame has columns:31
+[ 2026-01-14 22:48:14,382 ] 32 root - INFO - Required number of columns:2
+[ 2026-01-14 22:48:14,382 ] 33 root - INFO - Data frame has columns:31
+[ 2026-01-14 22:48:14,545 ] 48 root - INFO - \u2705 Data Validation Completed
+[ 2026-01-14 22:48:14,546 ] 54 root - INFO - \U0001f504 Data Transformation Started
+[ 2026-01-14 22:48:14,546 ] 63 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2026-01-14 22:48:14,546 ] 65 root - INFO - Starting data transformation
+[ 2026-01-14 22:48:14,578 ] 48 root - INFO - Entered get_data_transformer_object method of Transformation class
+[ 2026-01-14 22:48:14,578 ] 53 root - INFO - Initialise KNNImputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[ 2026-01-14 22:48:14,601 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 22:48:14,606 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 22:48:14,606 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 22:48:14,611 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 22:48:14,613 ] 64 root - INFO - \u2705 Data Transformation Completed
+[ 2026-01-14 22:48:14,614 ] 70 root - INFO - \U0001f916 Model Training Started
+[ 2026-01-14 22:48:35,727 ] 107 root - INFO - Best model selected: Random Forest
+[ 2026-01-14 22:48:35,727 ] 111 root - INFO - Logging metrics for model: Random Forest
+[ 2026-01-14 22:49:47,951 ] 111 root - INFO - Logging metrics for model: Decision Tree
+[ 2026-01-14 22:50:27,731 ] 111 root - INFO - Logging metrics for model: Gradient Boosting
+[ 2026-01-14 22:51:12,602 ] 111 root - INFO - Logging metrics for model: Logistic Regression
+[ 2026-01-14 22:51:59,501 ] 111 root - INFO - Logging metrics for model: AdaBoost
+[ 2026-01-14 22:52:48,643 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 22:52:48,661 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 22:52:48,661 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-01-14 22:52:48,673 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-01-14 22:52:48,673 ] 155 root - INFO - Model trainer artifact: ModelTrainerArtifact(trained_model_file_path='Artifacts\\01_14_2026_22_47_59\\model_trainer\\trained_model\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9307110438729198, precision_score=0.9204069419509275, recall_score=0.9412484700122399), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.936837975676736, precision_score=0.9227202472952086, recall_score=0.951394422310757))
+[ 2026-01-14 22:52:48,675 ] 77 root - INFO - \u2705 Model Training Completed
+[ 2026-01-14 22:52:48,677 ] 80 root - INFO - \U0001f389 Network Security Training Pipeline Completed Successfully
