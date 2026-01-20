@@ -65,9 +65,6 @@ This project implements a comprehensive phishing detection system that analyzes 
 
 ![Project Architecture](images/arch.png)
 
-```
-
-```
 
 ---
 
