@@ -393,7 +393,7 @@ GET /model/info
 
 ### Dagshub Experiment Tracking
 
-![Dagshub Dashboard](images/dagshub_analysis.png)
+![Dagshub Dashboard](images/dagshub_dasboard.png)
 
 ### MLflow Experiment Tracking
 
