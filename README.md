@@ -393,11 +393,11 @@ GET /model/info
 
 ### Dagshub Experiment Tracking
 
-![Dagshub Dashboard](images/mlflow_analysis.png)
+![Dagshub Dashboard](images/dagshub_analysis.png)
 
 ### MLflow Experiment Tracking
 
-![MLflow Dashboard](images/dagshub_analysis.png)
+![MLflow Dashboard](images/mlflow_analysis.png)
 
 MLflow UI showing experiment tracking, model metrics, and parameter comparison across different runs.
 
@@ -604,4 +604,3 @@ print(config.required_features)
 
 ---
 
-*Last Updated: January 2026*
