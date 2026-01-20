@@ -28,9 +28,9 @@ An end-to-end Machine Learning project for detecting phishing attempts in networ
 - [Data Schema](#data-schema)
 - [Model Performance](#model-performance)
 - [Troubleshooting](#troubleshooting)
-- [License](#license)
 - [Contact](#contact)
 
+---
 ---
 
 ## 🎯 Overview
@@ -438,7 +438,7 @@ Data validation dashboard showing schema compliance and data quality metrics.
 
 ### Model Comparison
 
-![Model Comparison](images/comparison_two_model.png)
+![Model Comparison](images/comarasion_two_model.png)
 
 | Algorithm | Accuracy | Training Time | Model Size |
 |-----------|----------|---------------|------------|
@@ -502,23 +502,7 @@ mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5000
 # Clear browser cache and reload
 ```
 
-#### 4. Docker Build Failures
-
-**Problem:** Docker build fails with dependency errors
-
-**Solutions:**
-```bash
-# Clean Docker cache
-docker system prune -a
-
-# Rebuild with no cache
-docker build --no-cache -t networksecurity:latest .
-
-# Check Dockerfile for syntax errors
-docker build -t networksecurity:latest . 2>&1 | tee build.log
-```
-
-#### 5. Memory Issues During Training
+#### 4. Memory Issues During Training
 
 **Problem:** `MemoryError` or process killed during training
 
@@ -538,7 +522,7 @@ sudo mkswap /swapfile
 sudo swapon /swapfile
 ```
 
-#### 6. Data Validation Failures
+#### 5. Data Validation Failures
 
 **Problem:** Data validation errors during pipeline execution
 
@@ -558,7 +542,7 @@ validator.validate_data('path/to/data.csv')
 tail -f logs/network_security.log
 ```
 
-#### 7. Prediction API Errors
+#### 6. Prediction API Errors
 
 **Problem:** 500 Internal Server Error on prediction endpoint
 
@@ -580,7 +564,7 @@ print(pipeline.predict(data))
 "
 ```
 
-#### 8. Feature Engineering Errors
+#### 7. Feature Engineering Errors
 
 **Problem:** `ValueError` or `KeyError` during feature transformation
 
@@ -597,10 +581,6 @@ from networksecurity.entity.config_entity import DataTransformationConfig
 config = DataTransformationConfig()
 print(config.required_features)
 ```
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
