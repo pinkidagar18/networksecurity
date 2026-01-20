@@ -407,11 +407,11 @@ MLflow UI showing experiment tracking, model metrics, and parameter comparison a
 
 Main web interface for uploading data and making predictions.
 
-![Prediction Results](images/prediction_page.png)
+![Prediction Results](images/upload.png)
 
 Prediction results page showing classification outcomes and confidence scores.
 
-![Batch Upload](images/upload.png)
+![Batch Upload](images/prediction_page.png)
 
 Batch prediction interface for processing multiple records from CSV files.
 
